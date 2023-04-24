@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+	.sprite{
+		background-color : #F6B3BF
+	}
+</style>
+</head>
+<body>
+
+<div th:text="${#request.contextPath}">컨텍스트패스</div>
+[[${#request.contextPath}]]
+
+
+<!-- 태그없이 forEach를 돌리고 싶을때 th:block을 사용함 -->
+<!--/* <th:block th:each="emp : ${empList}">
+	[[${emp.firstName}]] 
+</th:block> */-->
+
+<!--/*properties : [[${site.upload}]] <br> */-->
+
+properties : [[#{site.upload}]]<br>
+		[[{$<font color=red>test</font>}]]
+<span th:utext="${'<font color=red>text</font>'}"></span>
+
+
+전체 사원수 : <span th:text="${#lists.size(empList)}">10명</span>
+
+<table>
+ <tr>
+ <th>no</th>
+ <th>employee_id</th>
+ <th>first_name</th>
+ <th>last_name</th>
+ <th>hireDate</th>
+ <th>salary</th>
+ </tr>
+<!-- <tr th:each="emp : ${empList}" th:class="${empStat.odd}?sprite:_"> 홀수라면 sprite 클래스 CSS 넣기 아니라면 넣지않기 -->
+<tr th:each="emp,st : ${empList}" th:class="${st.odd}?sprite:_"> <!-- st는 상태변수 = status를 의미함 -->
+ <td th:text="${st.index}"></td>  <!-- index는 0부터 시작 -->
+ <!-- <td th:text="${empStat.count}"></td> <!-- count는 1부터 시작 -->
+ <td th:text="${emp.employeeId}"></td>
+ <td><a th:href="|update?empid=${emp.employeeId}|" th:text="${emp.firstName}">사원명</a></td>
+  <td><a th:href="@{update(empid=${emp.employeeId}, fname=${emp.firstName})}" th:text="${emp.firstName}">사원명</a></td>
+ <td th:text="${emp.lastName}"></td>
+ <td th:text="${#dates.format(emp.hireDate,'yyyy-MM-dd')}"></td>
+ <td th:text="${#numbers.formatCurrency(emp.salary)}"></td>
+ <td><button th:if="${emp.salary}>10000">수정</button></td>
+</tr>
+</table>
+</body>
+</html>
+
+<script>
+	
+</script>
