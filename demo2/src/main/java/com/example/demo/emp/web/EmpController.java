@@ -13,11 +13,12 @@ public class EmpController {
 	
 	@Autowired EmpMapper empMapper; 
 	
+	/*
 	@GetMapping("/")
 	@ResponseBody
 	public String main() {
 		return "hello";
-	}
+	} */
 	
 	@GetMapping("/empList")
 	public String empList(Model model){
